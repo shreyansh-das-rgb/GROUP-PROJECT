@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,7 +75,6 @@
             display: block; /* Show the active content section */
         }
 
-
         h1 {
             color: #2c3e50; /* Dark blue/grey heading */
             margin-bottom: 1.5rem;
@@ -109,14 +109,14 @@
         }
 
         /* Define the rotation animation */
-        /* @keyframes rotateKTL {
+        @keyframes rotateKTL {
             from {
                 transform: rotateY(0deg);
             }
             to {
                 transform: rotateY(360deg);
             }
-        } */
+        }
 
         /* Optional Glow effect for H1 */
         .glow {
@@ -153,21 +153,48 @@
     </style>
 </head>
 <body style="padding: 100px;">
-    <div id="about-content" class="page-content">
-        <h1 class="glow">About <span class="ktl-animate">KTL</span></h1>
-        <p>
-            <strong>KTL</strong> is a platform built to empower the next generation of tech innovators.
-            We provide students with the space to showcase their skills, passion, and journey
-            in the world of technology.
-        </p>
-        <p>
-            Whether you're into coding, robotics, cybersecurity, or app development, <strong>KTL</strong> is your digital portfolio to shine.
-            Here, students can create their own profiles, share their projects, and connect with like-minded learners.
-        </p>
-        <p>
-            At <strong>KTL</strong>, we believe every student has a story worth telling — and we're here to help you tell it through tech.
-            Start building your future with us, one line of code at a time.
-        </p>
+    <nav>
+        <a href="#" class="active" onclick="showContent('about-content')">About</a>
+        <!-- Add more navigation links as needed -->
+    </nav>
+    <div class="main-container">
+        <div id="about-content" class="page-content active">
+            <h1 class="glow">About <span class="ktl-animate">KTL</span></h1>
+            <p>
+                <strong>KTL</strong> is a platform built to empower the next generation of tech innovators.
+                We provide students with the space to showcase their skills, passion, and journey
+                in the world of technology.
+            </p>
+            <p>
+                Whether you're into coding, robotics, cybersecurity, or app development, <strong>KTL</strong> is your digital portfolio to shine.
+                Here, students can create their own profiles, share their projects, and connect with like-minded learners.
+            </p>
+            <p>
+                At <strong>KTL</strong>, we believe every student has a story worth telling — and we're here to help you tell it through tech.
+                Start building your future with us, one line of code at a time.
+            </p>
+        </div>
     </div>
+    <footer>
+        &copy; 2023 KTL. All rights reserved.
+    </footer>
+    <script>
+        function showContent(id) {
+            // Hide all content sections
+            const contents = document.querySelectorAll('.page-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Show the selected content section
+            const activeContent = document.getElementById(id);
+            if (activeContent) {
+                activeContent.classList.add('active');
+            }
+
+            // Update active link
+            const links = document.querySelectorAll('nav a');
+            links.forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
 </body>
 </html>

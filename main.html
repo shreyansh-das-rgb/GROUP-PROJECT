@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KTL - Professional Input Interface</title>
+    <style>
+        /* --- Basic Reset & Global Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f7f6; /* Light grey background */
+            color: #333; /* Dark grey text */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure footer sticks to bottom */
+        }
+
+        /* --- Navigation Bar --- */
+        nav {
+            background-color: #121212; /* Dark blue/grey */
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: #ecf0f1; /* Light grey text */
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            margin: 0 0.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-weight: 500;
+            cursor: pointer; /* Indicate it's clickable */
+        }
+
+        nav a:hover {
+            background-color: #3498db; /* Blue hover */
+            color: #fff;
+        }
+
+        /* Style for the active page link */
+        nav a.active {
+            background-color: #e74c3c; /* Red accent for active */
+            color: #fff;
+            font-weight: bold;
+        }
+
+        /* --- Main Content Area Container --- */
+        .main-container {
+             max-width: 900px; /* Limit content width */
+             margin: 2rem auto; /* Center content with space top/bottom */
+             padding: 2rem;
+             background-color: #fff; /* White background for content */
+             border-radius: 8px;
+             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+             flex-grow: 1; /* Allow content to push footer down */
+        }
+
+        /* --- Individual Page Content Sections --- */
+        .page-content {
+            display: none; /* Hide all content sections by default */
+        }
+
+        .page-content.active {
+            display: block; /* Show the active content section */
+        }
+
+
+        h1 {
+            color: #2c3e50; /* Dark blue/grey heading */
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 2.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #555; /* Slightly lighter text for paragraphs */
+        }
+
+        strong {
+            color: #2c3e50; /* Emphasize with the heading color */
+        }
+
+        /* --- KTL Specific Styles & Animation --- */
+
+        /* Style for KTL brand name (e.g., on home page) */
+        .ktl-brand {
+            color: #e74c3c; /* Red accent color */
+            font-weight: bold;
+        }
+
+        /* Style for KTL in About page H1 - Prepare for animation */
+        .ktl-animate {
+            color: #e74c3c; /* Red accent color */
+            display: inline-block; /* Needed for transform */
+            font-weight: bold;
+            /* Apply the animation */
+            animation: rotateKTL 10s linear infinite; /* name, duration, timing, iteration */
+        }
+
+        /* Define the rotation animation */
+        /* @keyframes rotateKTL {
+            from {
+                transform: rotateY(0deg);
+            }
+            to {
+                transform: rotateY(360deg);
+            }
+        } */
+
+        /* Optional Glow effect for H1 */
+        .glow {
+            text-shadow: 0 0 5px rgba(44, 62, 80, 0.3); /* Subtle glow using heading color */
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem; /* Space above footer */
+            background-color: #bdc3c7; /* Light grey footer */
+            color: #2c3e50; /* Dark text */
+            font-size: 0.9rem;
+        }
+
+        /* --- Responsive Adjustments (Optional but good practice) --- */
+        @media (max-width: 600px) {
+            nav a {
+                padding: 0.6rem 1rem;
+                margin: 0 0.2rem;
+                font-size: 0.9rem;
+            }
+
+            .main-container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <style>
+        /* --- Global Styles & Reset --- */
+        body {
+            background-color: #121212; /* Darker background */
+            color: #e0e0e0; /* Softer white for text */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font stack */
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+        }
+
+        /* --- Container for Centering and Styling --- */
+        .container {
+            max-width: 850px; /* Limit width for readability */
+            margin: 40px auto; /* Center the container with spacing */
+            padding: 30px 40px;
+            background-color: #1e1e1e; /* Slightly lighter container background */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+        }
+
+        /* --- Typography --- */
+        h1 {
+            /* color: #ffffff; */ /* <-- Removed old white color */
+            color: #4dd0e1;      /* Base blue color */
+            text-align: center;
+            margin-bottom: 25px; /* Adjusted margin */
+            font-size: 2.8em;    /* Adjusted size */
+            letter-spacing: 2px; /* Adjusted spacing */
+            /* border-bottom: 2px solid #00bcd4; */ /* <-- Removed border */
+            padding-bottom: 15px;
+            /* --- GLOW EFFECT --- */
+            text-shadow:
+                0 0 5px rgba(255, 0, 0, 0.5), /* Inner soft glow matching text */
+                0 0 10px #ff0000,                /* Primary glow */
+                0 0 20px #ff0000,                /* Wider, slightly different blue glow */
+                0 0 35px #ff0000;                /* Widest halo */
+        }
+
+        h2 {
+            color: #ffffff;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            border-bottom: 1px solid #444; /* Subtle separator */
+            padding-bottom: 8px;
+        }
+
+        p {
+            color: #c0c0c0; /* Slightly dimmer paragraph text */
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: #00bcd4; /* Cyan link color */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover, a:focus {
+            color: #80deea; /* Lighter cyan on hover/focus */
+            text-decoration: underline;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #444; /* Styled horizontal rule */
+            margin: 40px 0; 
+        }
+
+        
+        form {
+            margin-top: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            box-sizing: border-box; 
+            background-color: #282828; 
+            color: #e0e0e0;
+            border: 1px solid #555; 
+            border-radius: 5px; 
+            padding: 15px; 
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace; 
+            font-size: 14px;
+            line-height: 1.5;
+            resize: vertical; 
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        textarea:focus {
+            border-color: #00bcd4; 
+            box-shadow: 0 0 8px rgba(0, 188, 212, 0.3); /* Subtle glow on focus */
+            outline: none; /* Remove default browser outline */
+        }
+
+        textarea::placeholder {
+            color: #777; /* Subtler placeholder text */
+            font-style: italic;
+        }
+
+        /* --- Buttons --- */
+        .button-group {
+            margin-top: 20px; /* Space above buttons */
+            text-align: left; /* Align buttons left */
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            background-color: #008c9e; /* Primary button color (darker cyan) */
+            color: white;
+            border: none;
+            padding: 12px 25px; /* Larger padding */
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em; /* Match body font size */
+            font-weight: bold;
+            margin-right: 15px; /* Space between buttons */
+            transition: background-color 0.3s ease, transform 0.1s ease; /* Smooth transitions */
+        }
+
+        input[type="submit"]:hover,
+        input[type="submit"]:focus {
+            background-color: #00bcd4; /* Lighter cyan on hover/focus */
+            outline: none;
+        }
+
+        input[type="reset"] {
+            background-color: #555;
+        }
+
+        input[type="reset"]:hover,
+        input[type="reset"]:focus {
+            background-color: #777;
+            outline: none;
+        }
+
+        input[type="submit"]:active,
+        input[type="reset"]:active {
+            transform: translateY(1px);
+        }
+
+        .footer-note {
+            color: #aaa;
+            font-size: 0.9em;
+            font-style: italic;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <!-- Use data-target attribute to identify which content to show -->
+        <!-- Start with 'home' link active -->
+        <a data-target="home" class="active">Home</a>
+        <a href="main.html">Main Page</a> <!-- Assuming Main Page shows Home content -->
+        <a href="about.html">About</a>
+    </nav>
+    
+    <div class="container">
+
+        <h1>KTL Interface</h1>
+
+        <p>Welcome to the KTL. Please enter your text below.</p>
+
+        <h2>Your Input:</h2>
+        <h3>Write something about yourelf in 100 words
+        </h3>
+
+        <form>
+            <textarea
+                name="userInput"
+                rows="15"
+                cols="80" <!-- cols is less relevant with width: 100% but can provide a fallback --
+            ></textarea>
+            <div class="button-group">
+                <input type="submit" value="Send (Dummy Button)">
+                <input type="reset" value="Clear Text">
+            </div>
+        </form>
+
+        <hr>
+
+        <p class="footer-note">(This)</p>
+
+    </div>
+
+</body>
+</html>
